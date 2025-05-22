@@ -1,4 +1,5 @@
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,28 +13,105 @@
     gtag('config', 'G-XXXXXXX');
   </script>
 
+
+
+
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
   <link rel="icon" href="favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#1ABC9C',      // فيروزي فاتح
-            secondary: '#16A085',    // فيروزي داكن
-            textPrimary: '#1a1a1a',
-            textSecondary: '#555555',
-          },
-          borderRadius: {
-            DEFAULT: '8px',
-            button: '8px',
-          },
-        },
+@@ -33,19 +33,19 @@
       },
     }
   </script>
 
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #000000; /* أسود */
+      color: #e5e5e5; /* رمادي فاتح للنص */
+    }
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+@@ -60,8 +60,12 @@
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-3xl font-['Pacifico'] text-primary">Amazon Studio</h1>
+      <div class="flex items-center space-x-4 space-x-reverse">
+        <a href="https://wa.me/201101011416" target="_blank" aria-label="واتساب">
+          <i class="ri-whatsapp-line text-2xl text-primary"></i>
+        </a>
+        <a href="mailto:amazonneew2006@gmail.com" aria-label="البريد الإلكتروني">
+          <i class="ri-mail-line text-2xl text-primary"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+@@ -77,48 +81,56 @@ <h2 class="text-3xl md:text-5xl font-bold mb-4">Amazon Studio – صور مؤط
+    </div>
+  </section>
+
+  <!-- Pricing Section - خشبي -->
+  <section class="py-16 bg-white text-black">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-12">المقاسات والأسعار البراويز الخشبية (بلوك)</h2>
+      <ul class="space-y-4 text-lg">
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>20×30 سم – <span class="text-primary font-semibold">120 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>30×40 سم – <span class="text-primary font-semibold">150 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>40×50 سم – <span class="text-primary font-semibold">250 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×60 سم – <span class="text-primary font-semibold">300 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×70 سم – <span class="text-primary font-semibold">350 جنيه</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Pricing Section - زجاجي -->
+  <section class="py-16 bg-white text-black">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-12">المقاسات والأسعار البراويز الزجاجية (فريم أسود)</h2>
+      <ul class="space-y-4 text-lg">
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>20×30 سم – <span class="text-primary font-semibold">130 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>30×40 سم – <span class="text-primary font-semibold">170 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>40×50 سم – <span class="text-primary font-semibold">270 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×60 سم – <span class="text-primary font-semibold">330 جنيه</span></li>
+        <li><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×70 سم – <span class="text-primary font-semibold">380 جنيه</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Order Section -->
+  <section class="py-10 bg-white text-black">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h3 class="text-xl font-semibold mb-4">اختر المقاس واطلب الآن</h3>
+      <select id="sizeSelect" class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-primary text-right mb-4">
+        <option value="">-- اختر المقاس --</option>
+        <!-- خشبي -->
+        <option value="20×30 سم – 120 جنيه">20×30 سم – 120 جنيه (خشبي)</option>
+        <option value="30×40 سم – 150 جنيه">30×40 سم – 150 جنيه (خشبي)</option>
+        <option value="40×50 سم – 250 جنيه">40×50 سم – 250 جنيه (خشبي)</option>
+        <option value="50×60 سم – 300 جنيه">50×60 سم – 300 جنيه (خشبي)</option>
+        <option value="50×70 سم – 350 جنيه">50×70 سم – 350 جنيه (خشبي)</option>
+        <!-- زجاجي -->
+        <option value="20×30 سم – 130 جنيه">20×30 سم – 130 جنيه (زجاجي)</option>
+        <option value="30×40 سم – 170 جنيه">30×40 سم – 170 جنيه (زجاجي)</option>
+        <option value="40×50 سم – 270 جنيه">40×50 سم – 270 جنيه (زجاجي)</option>
+        <option value="50×60 سم – 330 جنيه">50×60 سم – 330 جنيه (زجاجي)</option>
+        <option value="50×70 سم – 380 جنيه">50×70 سم – 380 جنيه (زجاجي)</option>
+      </select>
+      <button id="orderNowBtn" class="bg-primary text-white px-6 py-3 rounded-button w-full font-semibold mb-6">اطلب الآن عبر واتساب</button>
+
+      <h3 class="text-xl font-semibold mb-4">حساب
+      <div class="mt-6 border-t pt-6">
+        <h3 class="text-xl font-semibold mb-4">حساب العربون (25%)</h3>
+        <div class="flex flex-col md:flex-row gap-4">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
