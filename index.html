@@ -16,26 +16,23 @@
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#000000', // اسود غامق
-        secondary: '#888888', // رصاصي أفتح (مثال)
+  tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1ABC9C',      // فيروزي (لون رئيسي)
+            secondary: '#16A085',    // فيروزي داكن (لون ثانوي)
+            textPrimary: '#1a1a1a',  // نص أسود غامق
+            textSecondary: '#555555' // نص رمادي متوسط
+          },
+          borderRadius: {
+            DEFAULT: '8px',
+            button: '8px',
+          },
+        },
       },
-      borderRadius: {
-        DEFAULT: '8px',
-        md: '12px',
-        lg: '16px',
-        xl: '20px',
-        '2xl': '24px',
-        '3xl': '32px',
-        button: '8px',
-      },
-    },
-  },
-}
-
+    }
+  </script>
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
