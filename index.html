@@ -3,20 +3,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="استوديو أمازون لبيع الصور المؤطرة بجودة عالية مع التوصيل لجميع المحافظات. اطلب الآن عبر واتساب.">
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXX');
+</script>
   <link rel="icon" href="favicon.png" />
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { primary: '#e5b5b5b', secondary: '#009e91' },
-          borderRadius: {
-            DEFAULT: '8px', md: '12px', lg: '16px', xl: '20px',
-            '2xl': '24px', '3xl': '32px', button: '8px',
-          },
-        },
+   tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#333333', // رصاصي غامق
+        secondary: '#666666' // رصاصي أفتح
       },
+      borderRadius: {
+        DEFAULT: '8px', md: '12px', lg: '16px', xl: '20px',
+        '2xl': '24px', '3xl': '32px', button: '8px',
+      },
+    },
+  },
+}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,10 +37,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f9fafb;
-    }
+  body {
+  font-family: 'Cairo', sans-serif;
+  background-color: #1a1a1a; /* أسود */
+  color: #e5e5e5; /* رمادي فاتح للنص */
+}
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -291,7 +305,7 @@
       window.open(url, '_blank');
     });
   </script> 
-    alert("أهلاً بيك في استوديو أمازون! 🎉توصيل مجاني في حالة الطلبات فوق 500 جنيه 💸");
+ أهلاً بيك في استوديو أمازون! 🎉توصيل مجاني في حالة الطلبات فوق 500 جنيه 💸
   });
 </script>
 </body>
