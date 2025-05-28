@@ -1,25 +1,34 @@
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="description" content="استوديو أمازون لبيع الصور المؤطرة بجودة عالية مع التوصيل لجميع المحافظات. اطلب الآن عبر واتساب.">
+  <meta name="keywords" content="صور مؤطرة, براويز صور, إطارات فنية, ديكور منزلي, صور فاخرة">
   <link rel="icon" href="favicon.png" />
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-05BY9GHQS1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-05BY9GHQS1');
-</script>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05BY9GHQS1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-05BY9GHQS1');
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { primary: '#e67e22', secondary: '#3498db' },
+          colors: {
+            primaryBlack: '#000000',
+            primaryRed: '#D10000',
+            accentCopper: '#B87333',
+            darkBg: '#0A0A0A',
+            lightText: '#F0F0F0',
+            darkText: '#1A1A1A',
+            cardBg: '#1A1A1A',
+          },
           borderRadius: {
             DEFAULT: '8px', md: '12px', lg: '16px', xl: '20px',
             '2xl': '24px', '3xl': '32px', button: '8px',
@@ -36,335 +45,736 @@
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #f9fafb;
+      background-color: #0A0A0A;
+      color: #F0F0F0;
     }
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+    .gallery-img-container {
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
     .gallery-img {
       height: 300px;
       object-fit: cover;
       transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .gallery-img-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
     .gallery-img:hover {
       transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(209, 0, 0, 0.3);
+    }
+    .whatsapp-button, .instagram-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #D10000;
+      color: #F0F0F0;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+    .whatsapp-button:hover, .instagram-button:hover {
+      background-color: #B80000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .whatsapp-button i, .instagram-button i {
+      margin-left: 8px;
+    }
+    #imageModal {
+      backdrop-filter: blur(5px);
+    }
+    .price-item {
+      border-right: 3px solid #B87333;
+      padding-right: 12px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      height: 3px;
+      background: #D10000;
+    }
+    .best-seller {
+      background: linear-gradient(45deg, #B87333, #D10000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    .custom-image-upload {
+      border: 2px dashed #B87333;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .custom-image-upload:hover {
+      border-color: #D10000;
+      background-color: rgba(184, 115, 51, 0.1);
+    }
+    #imagePreview {
+      max-height: 200px;
+      max-width: 100%;
+      display: none;
+      margin-top: 15px;
+      border-radius: 8px;
+    }
+    .selected-image {
+      border: 3px solid #D10000;
+      box-shadow: 0 0 15px rgba(209, 0, 0, 0.5);
+    }
+    
+    /* تم إضافة هذه التنسيقات الجديدة */
+    .modal-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .order-buttons-container {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .order-btn-modal {
+      background-color: #25D366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .order-btn-modal.instagram {
+      background-color: #E1306C;
+    }
+    
+    .order-btn-modal:hover {
+      transform: scale(1.05);
+    }
+    
+    .order-btn-modal i {
+      margin-left: 8px;
+    }
+    
+    .upload-success {
+      color: #25D366;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
     }
   </style>
 </head>
 <body class="min-h-screen">
 
   <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-10">
+  <header class="bg-primaryBlack shadow-lg sticky top-0 z-50 border-b border-primaryRed">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-3xl font-['Pacifico'] text-primary">Amazon Studio</h1>
+      <h1 class="text-3xl font-['Pacifico'] text-accentCopper">Amazon Studio</h1>
       <div class="flex items-center space-x-4 space-x-reverse">
-        <a href="https://wa.me/201101011416" target="_blank" class="hover:text-secondary transition-colors">
-          <i class="ri-whatsapp-line text-2xl text-primary" aria-hidden="true"></i>
+        <a href="https://wa.me/201101011416" target="_blank" class="hover:opacity-80 transition-opacity" aria-label="واتساب">
+          <i class="ri-whatsapp-line text-2xl text-accentCopper" aria-hidden="true"></i>
         </a>
-        <a href="mailto:amazonneew2006@gmail.com" class="hover:text-secondary transition-colors">
-          <i class="ri-mail-line text-2xl text-primary" aria-hidden="true"></i>
+        <a href="https://www.instagram.com/amazonstudio31" target="_blank" class="hover:opacity-80 transition-opacity" aria-label="إنستجرام">
+          <i class="ri-instagram-line text-2xl text-accentCopper" aria-hidden="true"></i>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative bg-cover bg-center min-h-[300px] md:h-[400px]" style="background-image: url('https://readdy.ai/api/search-image?query=Professional%20photography%20studio&width=1200&height=600');">
-    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
-      <div class="text-center text-white max-w-lg mx-auto">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4">Amazon Studio – صور مؤطرة فاخرة</h2>
+  <section class="relative bg-cover bg-center min-h-[300px] md:h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://i.ibb.co/93wyymzH/203a9d098f06541a1fd7e26b2eb71e29.jpg')">
+    <div class="container mx-auto px-4 h-full flex items-center justify-end">
+      <div class="text-center text-lightText max-w-lg mx-auto">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4 text-primaryRed">Amazon Studio – صور مؤطرة فاخرة</h2>
         <p class="text-base md:text-lg mb-6">توصيل للمنزل مع ضمان الجودة</p>
-        <a href="#gallery" class="bg-primary hover:bg-opacity-90 text-white px-6 md:px-8 py-3 rounded-button font-medium text-lg inline-block transition-all hover:shadow-lg">اطلب الآن</a>
+        <a href="#gallery" class="bg-primaryRed hover:bg-opacity-90 text-lightText px-8 py-3 rounded-button font-bold text-lg inline-block transition-all hover:shadow-lg transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50">
+          اطلع على المعرض
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Image Section -->
+  <section class="py-16 bg-darkBg">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold section-title text-lightText">يمكنك عمل برواز بأي صورة من اختيارك</h2>
+      
+      <div class="bg-cardBg p-6 rounded-lg border border-primaryRed border-opacity-20 shadow-lg mb-8">
+        <div class="custom-image-upload" id="uploadContainer">
+          <i class="ri-upload-cloud-2-line text-4xl text-accentCopper mb-3"></i>
+          <h3 class="text-xl font-semibold mb-2">ارفع صورتك المفضلة</h3>
+          <p class="text-gray-400 mb-3">اسحب وأسقط الصورة هنا أو انقر لاختيارها</p>
+          <input type="file" id="imageUpload" accept="image/*" class="hidden" />
+          <img id="imagePreview" alt="معاينة الصورة" />
+          <div class="upload-success" id="uploadSuccess">
+            <i class="ri-checkbox-circle-fill"></i> تم رفع الصورة بنجاح!
+          </div>
+          <button id="uploadBtn" class="bg-accentCopper hover:bg-opacity-90 text-darkText px-6 py-2 rounded-button transition-all focus:outline-none focus:ring-2 focus:ring-primaryRed focus:ring-opacity-50 font-bold mt-3">
+            اختر صورة
+          </button>
+        </div>
+        
+        <div id="customOrderSection" class="mt-6 hidden">
+          <select id="customSizeSelect" class="w-full px-4 py-3 border border-primaryRed border-opacity-30 rounded focus:ring-2 focus:ring-accentCopper text-right mb-4 bg-darkBg text-lightText">
+            <option value="">-- اختر المقاس --</option>
+            <optgroup label="براويز خشبية">
+              <option value="15×20 سم خشب – 90 جنيه">15×20 سم خشب – 90 جنيه</option>
+              <option value="20×30 سم خشب – 120 جنيه">20×30 سم خشب – 120 جنيه</option>
+              <option value="30×40 سم خشب – 150 جنيه">30×40 سم خشب – 150 جنيه</option>
+              <option value="40×50 سم خشب – 220 جنيه">40×50 سم خشب – 220 جنيه</option>
+              <option value="50×70 سم خشب – 350 جنيه">50×70 سم خشب – 350 جنيه</option>
+              <option value="60×90 سم خشب – 450 جنيه">60×90 سم خشب – 450 جنيه</option>
+            </optgroup>
+            <optgroup label="براويز زجاجية">
+              <option value="15×20 سم زجاج – 100 جنيه">15×20 سم زجاج – 100 جنيه</option>
+              <option value="20×30 سم زجاج – 130 جنيه">20×30 سم زجاج – 130 جنيه</option>
+              <option value="30×40 سم زجاج – 170 جنيه">30×40 سم زجاج – 170 جنيه</option>
+              <option value="40×50 سم زجاج – 250 جنيه">40×50 سم زجاج – 250 جنيه</option>
+              <option value="50×70 سم زجاج – 380 جنيه">50×70 سم زجاج – 380 جنيه</option>
+              <option value="60×90 سم زجاج – 500 جنيه">60×90 سم زجاج – 500 جنيه</option>
+            </optgroup>
+          </select>
+          <div class="flex gap-4">
+            <button id="sendCustomWhatsappBtn" class="flex-1 bg-[#25D366] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
+              <i class="ri-whatsapp-line ml-2"></i> واتساب
+            </button>
+            <button id="sendCustomInstagramBtn" class="flex-1 bg-[#E1306C] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
+              <i class="ri-instagram-line ml-2"></i> إنستجرام
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing Section -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-darkBg">
     <div class="container mx-auto px-4 max-w-4xl">
-      <h2 class="text-3xl font-bold text-center mb-12">المقاسات والأسعار البراويز الخشبيه (بلوك)</h2>
-      <ul class="space-y-4 text-lg">
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>20×30 سم – <span class="text-primary font-semibold mr-1">120 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>30×40 سم – <span class="text-primary font-semibold mr-1">150 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>40×50 سم – <span class="text-primary font-semibold mr-1">250 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×60 سم – <span class="text-primary font-semibold mr-1">300 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×70 سم – <span class="text-primary font-semibold mr-1">350 جنيه</span></li>
-      </ul>
+      <h2 class="text-3xl font-bold section-title text-lightText">المقاسات والأسعار</h2>
       
-      <h2 class="text-3xl font-bold text-center mt-16 mb-12">المقاسات والأسعار البراويز الازاز(فريم اسود)</h2>
-      <ul class="space-y-4 text-lg">
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>20×30 سم – <span class="text-primary font-semibold mr-1">130 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>30×40 سم – <span class="text-primary font-semibold mr-1">170 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>40×50 سم – <span class="text-primary font-semibold mr-1">270 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×60 سم – <span class="text-primary font-semibold mr-1">330 جنيه</span></li>
-        <li class="flex items-center"><i class="ri-checkbox-circle-fill text-primary ml-2"></i>50×70 سم – <span class="text-primary font-semibold mr-1">380 جنيه</span></li>
-      </ul>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Wooden Frames -->
+        <div class="bg-cardBg p-6 rounded-lg border border-primaryRed border-opacity-20 shadow-lg">
+          <h3 class="text-2xl font-semibold mb-6 text-accentCopper flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="ri-image-line ml-2"></i> براويز خشبية كلاسيكية
+            </span>
+            <span class="text-sm bg-accentCopper text-darkText px-3 py-1 rounded-full">الأكثر مبيعاً</span>
+          </h3>
+          <ul class="space-y-4">
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                15×20 سم
+              </span>
+              <span class="text-primaryRed font-bold">90 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                20×30 سم
+              </span>
+              <span class="text-primaryRed font-bold">120 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                30×40 سم
+              </span>
+              <span class="text-primaryRed font-bold">150 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                40×50 سم
+              </span>
+              <span class="text-primaryRed font-bold">220 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                50×70 سم
+              </span>
+              <span class="text-primaryRed font-bold">350 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                60×90 سم
+              </span>
+              <span class="text-primaryRed font-bold">450 جنيه</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Glass Frames -->
+        <div class="bg-cardBg p-6 rounded-lg border border-primaryRed border-opacity-20 shadow-lg">
+          <h3 class="text-2xl font-semibold mb-6 text-accentCopper flex items-center">
+            <i class="ri-image-2-line ml-2"></i> براويز زجاج مودرن
+          </h3>
+          <ul class="space-y-4">
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                15×20 سم
+              </span>
+              <span class="text-primaryRed font-bold">100 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                20×30 سم
+              </span>
+              <span class="text-primaryRed font-bold">130 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                30×40 سم
+              </span>
+              <span class="text-primaryRed font-bold">170 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                40×50 سم
+              </span>
+              <span class="text-primaryRed font-bold">250 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                50×70 سم
+              </span>
+              <span class="text-primaryRed font-bold">380 جنيه</span>
+            </li>
+            <li class="price-item flex justify-between items-center py-2">
+              <span class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                60×90 سم
+              </span>
+              <span class="text-primaryRed font-bold">500 جنيه</span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <!-- Order Section -->
-      <div class="mt-10 border-t pt-6">
-        <h3 class="text-xl font-semibold mb-4">اختر المقاس واطلب الآن</h3>
-        <select id="sizeSelect" class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-primary text-right mb-4">
+      <div class="mt-12 bg-cardBg p-6 rounded-lg border border-primaryRed border-opacity-20 shadow-lg">
+        <h3 class="text-xl font-semibold mb-4 text-lightText">اختر المقاس واطلب الآن</h3>
+        <select id="sizeSelect" class="w-full px-4 py-3 border border-primaryRed border-opacity-30 rounded focus:ring-2 focus:ring-accentCopper text-right mb-4 bg-darkBg text-lightText">
           <option value="">-- اختر المقاس --</option>
-          <option value="20×30 سم خشب – 120 جنيه">20×30 سم خشب – 120 جنيه</option>
-          <option value="30×40 سم خشب – 150 جنيه">30×40 سم خشب – 150 جنيه</option>
-          <option value="40×50 سم خشب – 250 جنيه">40×50 سم خشب – 250 جنيه</option>
-          <option value="50×60 سم خشب – 300 جنيه">50×60 سم خشب – 300 جنيه</option>
-          <option value="50×70 سم خشب – 350 جنيه">50×70 سم خشب – 350 جنيه</option>
-          <option value="20×30 سم زجاج – 130 جنيه">20×30 سم زجاج – 130 جنيه</option>
-          <option value="30×40 سم زجاج – 170 جنيه">30×40 سم زجاج – 170 جنيه</option>
-          <option value="40×50 سم زجاج – 270 جنيه">40×50 سم زجاج – 270 جنيه</option>
-          <option value="50×60 سم زجاج – 330 جنيه">50×60 سم زجاج – 330 جنيه</option>
-          <option value="50×70 سم زجاج – 380 جنيه">50×70 سم زجاج – 380 جنيه</option>
+          <!-- Wooden Frames -->
+          <optgroup label="براويز خشبية">
+            <option value="15×20 سم خشب – 90 جنيه">15×20 سم خشب – 90 جنيه</option>
+            <option value="20×30 سم خشب – 120 جنيه">20×30 سم خشب – 120 جنيه</option>
+            <option value="30×40 سم خشب – 150 جنيه">30×40 سم خشب – 150 جنيه</option>
+            <option value="40×50 سم خشب – 220 جنيه">40×50 سم خشب – 220 جنيه</option>
+            <option value="50×70 سم خشب – 350 جنيه">50×70 سم خشب – 350 جنيه</option>
+            <option value="60×90 سم خشب – 450 جنيه">60×90 سم خشب – 450 جنيه</option>
+          </optgroup>
+          <!-- Glass Frames -->
+          <optgroup label="براويز زجاجية">
+            <option value="15×20 سم زجاج – 100 جنيه">15×20 سم زجاج – 100 جنيه</option>
+            <option value="20×30 سم زجاج – 130 جنيه">20×30 سم زجاج – 130 جنيه</option>
+            <option value="30×40 سم زجاج – 170 جنيه">30×40 سم زجاج – 170 جنيه</option>
+            <option value="40×50 سم زجاج – 250 جنيه">40×50 سم زجاج – 250 جنيه</option>
+            <option value="50×70 سم زجاج – 380 جنيه">50×70 سم زجاج – 380 جنيه</option>
+            <option value="60×90 سم زجاج – 500 جنيه">60×90 سم زجاج – 500 جنيه</option>
+          </optgroup>
         </select>
-        <button id="orderNowBtn" class="bg-primary hover:bg-opacity-90 text-white px-6 py-3 rounded-button w-full font-semibold mb-6 transition-all">اطلب الآن عبر واتساب</button>
-      </div>
-
-      <div class="mt-6 border-t pt-6">
-        <h3 class="text-xl font-semibold mb-4">حساب العربون (25%)</h3>
-        <div class="flex flex-col md:flex-row gap-4">
-          <input type="number" id="priceInput" placeholder="أدخل السعر" class="flex-1 px-4 py-3 border rounded focus:ring-2 focus:ring-primary text-right">
-          <button id="calculateBtn" class="bg-primary hover:bg-opacity-90 text-white px-6 py-3 rounded-button transition-all">احسب</button>
+        <div class="flex gap-4">
+          <button id="orderWhatsappBtn" class="flex-1 bg-[#25D366] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
+            <i class="ri-whatsapp-line ml-2"></i> واتساب
+          </button>
+          <button id="orderInstagramBtn" class="flex-1 bg-[#E1306C] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
+            <i class="ri-instagram-line ml-2"></i> إنستجرام
+          </button>
         </div>
-        <div id="resultContainer" class="mt-4 hidden bg-gray-50 p-4 rounded-lg"></div>
       </div>
-    </div>
-  </section>
 
-  <!-- Contact & Payment Info -->
-  <section class="py-12 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-4xl space-y-6">
-      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-        <h3 class="text-xl font-semibold mb-4 flex items-center">
-          <i class="ri-phone-line text-primary ml-2"></i> معلومات التواصل
-        </h3>
-        <p class="mb-2 flex items-center">
-          <i class="ri-whatsapp-line text-primary ml-2"></i> 
-          <a href="https://wa.me/201101011416" target="_blank" class="hover:text-secondary">01101011416</a>
-        </p>
-        <p class="flex items-center">
-          <i class="ri-mail-line text-primary ml-2"></i> 
-          <a href="mailto:amazonneew2006@gmail.com" class="hover:text-secondary">amazonneew2006@gmail.com</a>
-        </p>
-      </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-        <h3 class="text-xl font-semibold mb-4 flex items-center">
-          <i class="ri-bank-card-line text-primary ml-2"></i> طريقة الدفع
-        </h3>
-        <p class="mb-2">25% عربون عن طريق Etisalat Cash، والباقي عند التوصيل</p>
-        <p class="text-sm text-gray-600">نقبل الدفع النقدي أو التحويل البنكي</p>
+      <!-- Deposit Calculator -->
+      <div class="mt-8 bg-cardBg p-6 rounded-lg border border-primaryRed border-opacity-20 shadow-lg">
+        <h3 class="text-xl font-semibold mb-4 text-lightText">حساب العربون (25%)</h3>
+        <div class="flex flex-col md:flex-row gap-4">
+          <input type="number" id="priceInput" placeholder="أدخل السعر الكامل" class="flex-1 px-4 py-3 border border-primaryRed border-opacity-30 rounded focus:ring-2 focus:ring-accentCopper text-right bg-darkBg text-lightText placeholder-gray-400">
+          <button id="calculateBtn" class="bg-accentCopper hover:bg-opacity-90 text-darkText px-6 py-3 rounded-button transition-all focus:outline-none focus:ring-2 focus:ring-primaryRed focus:ring-opacity-50 font-bold">
+            احسب العربون
+          </button>
+        </div>
+        <div id="resultContainer" class="mt-4 hidden bg-darkBg p-4 rounded-lg border border-accentCopper border-opacity-30 text-lightText"></div>
       </div>
     </div>
   </section>
 
   <!-- Gallery Section -->
-  <section id="gallery" class="py-16 bg-white">
+  <section id="gallery" class="py-16 bg-primaryBlack">
     <div class="container mx-auto px-4 max-w-6xl">
-      <h2 class="text-3xl font-bold text-center mb-10">معرض أعمالنا</h2>
+      <h2 class="text-3xl font-bold section-title text-lightText">معرض أعمالنا</h2>
       
-      <div class="mb-12">
-        <h3 class="text-2xl font-semibold mb-6 text-primary">المقاسات الأساسية</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/NKL8vNNk/20x30.jpg" alt="إطار 20×30 سم" class="w-full gallery-img">
-            <div class="p-3">
-              <p class="text-center font-medium text-secondary">20×30 سم</p>
-              <p class="text-center text-gray-600">120 جنيه (خشب)</p>
-              <p class="text-center text-gray-600">130 جنيه (زجاج)</p>
-            </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/5V9LFjN/1-1.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/TBNdSzgJ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية مودرن" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Ndv7XyZQ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/fdkWzS2w/2-2-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/sv45bV68/2-2-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/M5QPPwC1/2-2-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/XfHmzCns/2-2-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/xS9vhSCx/2-2-Copy-Copy-Copy-2-Copy.jpg" alt="إطار صورة زجاجية أنيقة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/d0Pc7K0z/2-2-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/qM4sVFVh/2-2-Copy-Copy-Copy-3-Copy.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/0y9fX8Rj/2-2-Copy-Copy-Copy-3.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/VYdcZDCT/2-2.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/ZRByC1M5/3-3.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/v6B47mnk/4-4-Copy-Copy-copy-2.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Z6c97FNC/4-4-Copy-Copy-copy.jpg" alt="إطار صورة خشبية أنيقة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/8LbBv4xY/4-4-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/ZRSHDJy8/4-4-Copy.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Rp0y85LC/4-4.jpg" alt="إطار صورة زجاجية كلاسيكية" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/xqYcwQp0/5-5.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/BHHFM4R3/6-6.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/9H2QRQzw/7-7.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/JwBkZzBk/8-8.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Dfs6ntPM/554.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/kg747NKC/6484.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-16 bg-darkBg">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold section-title text-lightText">آراء العملاء</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-cardBg p-6 rounded-lg border border-accentCopper border-opacity-20">
+          <div class="flex items-center mb-4">
+            <div class="text-accentCopper text-2xl mr-2">★★★★★</div>
           </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/phMK8PPs/30x40.jpg" alt="إطار 30×40 سم" class="w-full gallery-img">
-            <div class="p-3">
-              <p class="text-center font-medium text-secondary">30×40 سم</p>
-              <p class="text-center text-gray-600">150 جنيه (خشب)</p>
-              <p class="text-center text-gray-600">170 جنيه (زجاج)</p>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/QFPQ8pwG/40x50.jpg" alt="إطار 40×50 سم" class="w-full gallery-img">
-            <div class="p-3">
-              <p class="text-center font-medium text-secondary">40×50 سم</p>
-              <p class="text-center text-gray-600">250 جنيه (خشب)</p>
-              <p class="text-center text-gray-600">270 جنيه (زجاج)</p>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/5Y5LSD0b/50x60.jpg" alt="إطار 50×60 سم" class="w-full gallery-img">
-            <div class="p-3">
-              <p class="text-center font-medium text-secondary">50×60 سم</p>
-              <p class="text-center text-gray-600">300 جنيه (خشب)</p>
-              <p class="text-center text-gray-600">330 جنيه (زجاج)</p>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/R3HcNWx3/50x70.jpg" alt="إطار 50×70 سم" class="w-full gallery-img">
-            <div class="p-3">
-              <p class="text-center font-medium text-secondary">50×70 سم</p>
-              <p class="text-center text-gray-600">350 جنيه (خشب)</p>
-              <p class="text-center text-gray-600">380 جنيه (زجاج)</p>
+          <p class="text-lightText mb-4">"المنتج فاخر جداً وجودة التصنيع ممتازة، والتوصيل كان سريعاً ورائعاً. شكراً لكم!"</p>
+          <div class="flex items-center">
+            <div class="ml-3">
+              <h4 class="font-semibold">أحمد محمد</h4>
+              <p class="text-sm text-gray-400">القاهرة</p>
             </div>
           </div>
         </div>
-      </div>
-      
-      <div class="mb-12">
-        <h3 class="text-2xl font-semibold mb-6 text-primary">تصاميم مميزة</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/hXsf8qQZ/01ad56e1eece41b66851f68c045a6e4c.jpg" alt="تصميم مميز 1" class="w-full gallery-img">
+        
+        <div class="bg-cardBg p-6 rounded-lg border border-accentCopper border-opacity-20">
+          <div class="flex items-center mb-4">
+            <div class="text-accentCopper text-2xl mr-2">★★★★☆</div>
           </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/477yT7Lj/030d76b55de03bd5c83abe8cad083566.jpg" alt="تصميم مميز 2" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/5Xs2YqDZ/2542024ca2236a0d34b90c023234e8b6.jpg" alt="تصميم مميز 3" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/8FCstnhp/2e0e158446562236a1ed27bb0a8e45f0.jpg" alt="تصميم مميز 4" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/8fLC78VH/4a4835040805f855b6fc73a5ada734ff.jpg" alt="تصميم مميز 5" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/rz4sn4tr/51db78ee0cd3dc62dd15cd6d540c9988.jpg" alt="تصميم مميز 6" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/JsrhzdYN/5227e62722d3f2ee727ff114775ec25c.jpg" alt="تصميم مميز 7" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/5Yh094Dy/6f73644102b4658b4412a46c3c471043.jpg" alt="تصميم مميز 8" class="w-full gallery-img">
-          </div>
-        </div>
-      </div>
-      
-      <div>
-        <h3 class="text-2xl font-semibold mb-6 text-primary">أفكار لصورك</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/RNzFj0cb/74a921c42744875d45f496225ddb76de.jpg" alt="فكرة صورة 1" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/VS5Lj085/7797538049b9c165f5cb0fde9bf31204.jpg" alt="فكرة صورة 2" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/8Fnc3BHh/8ac0d60133157717c7b231646c8da8dd.jpg" alt="فكرة صورة 3" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/nCYzZt2V/902b680c418a9b7b9dd3bfb722aba8de.jpg" alt="فكرة صورة 4" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/S2MSP0jh/a8e3fa6f53b5f3624448b239894e5cc2.jpg" alt="فكرة صورة 5" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/3y6r9r81/b1a91ec446892b990d011ddc53cdbfad.jpg" alt="فكرة صورة 6" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/GTnLwMss/b715535571dc691e8abb0162f68b8eb3.jpg" alt="فكرة صورة 7" class="w-full gallery-img">
-          </div>
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <img src="https://i.postimg.cc/mh7ZNG03/bf9bfc93e54d237871a8d2126e7aedbb.jpg" alt="فكرة صورة 8" class="w-full gallery-img">
+          <p class="text-lightText mb-4">" التصميم جميل جداً والجودة عالية، لكن التوصيل تأخر يومين عن الموعد المحدد بس بصراحه زي الفل ."</p>
+          <div class="flex items-center">
+            <div class="ml-3">
+              <h4 class="font-semibold">مريم علي</h4>
+              <p class="text-sm text-gray-400">الإسكندرية</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-<html lang="en">
-<head>
-  <h1>Amazon Studio</h1>
-  <p>This is just a photo gallery. For orders, please contact us on WhatsApp:</p>
-  <a class="whatsapp-button" href="https://wa.me/201101011416" target="_blank">Click to Chat on WhatsApp</a>
-  <div class="instagram-follow">
-    <a href="https://www.instagram.com/amazonstudio31" target="_blank">Follow us on Instagram</a>
-  </div>
-  <div class="gallery">
-    <!-- existing image links remain unchanged -->
-    <a href="https://i.ibb.co/5V9LFjN/1-1.jpg" target="_self"><img src="https://i.ibb.co/5V9LFjN/1-1.jpg" alt="1-1"></a>
-    <a href="https://i.ibb.co/TBNdSzgJ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-Copy.jpg" target="_self"><img src="https://i.ibb.co/TBNdSzgJ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/Ndv7XyZQ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-2.jpg" target="_self"><img src="https://i.ibb.co/Ndv7XyZQ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/fdkWzS2w/2-2-Copy-Copy-Copy-Copy-Copy-Copy.jpg" target="_self"><img src="https://i.ibb.co/fdkWzS2w/2-2-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/sv45bV68/2-2-Copy-Copy-Copy-Copy-Copy-2.jpg" target="_self"><img src="https://i.ibb.co/sv45bV68/2-2-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/M5QPPwC1/2-2-Copy-Copy-Copy-Copy-Copy.jpg" target="_self"><img src="https://i.ibb.co/M5QPPwC1/2-2-Copy-Copy-Copy-Copy-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/XfHmzCns/2-2-Copy-Copy-Copy-Copy.jpg" target="_self"><img src="https://i.ibb.co/XfHmzCns/2-2-Copy-Copy-Copy-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/xS9vhSCx/2-2-Copy-Copy-Copy-2-Copy.jpg" target="_self"><img src="https://i.ibb.co/xS9vhSCx/2-2-Copy-Copy-Copy-2-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/d0Pc7K0z/2-2-Copy-Copy-Copy-2.jpg" target="_self"><img src="https://i.ibb.co/d0Pc7K0z/2-2-Copy-Copy-Copy-2.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/qM4sVFVh/2-2-Copy-Copy-Copy-3-Copy.jpg" target="_self"><img src="https://i.ibb.co/qM4sVFVh/2-2-Copy-Copy-Copy-3-Copy.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/0y9fX8Rj/2-2-Copy-Copy-Copy-3.jpg" target="_self"><img src="https://i.ibb.co/0y9fX8Rj/2-2-Copy-Copy-Copy-3.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/VYdcZDCT/2-2.jpg" target="_self"><img src="https://i.ibb.co/VYdcZDCT/2-2.jpg" alt="2-2"></a>
-    <a href="https://i.ibb.co/ZRByC1M5/3-3.jpg" target="_self"><img src="https://i.ibb.co/ZRByC1M5/3-3.jpg" alt="3-3"></a>
-    <a href="https://i.ibb.co/v6B47mnk/4-4-Copy-Copy-copy-2.jpg" target="_self"><img src="https://i.ibb.co/v6B47mnk/4-4-Copy-Copy-copy-2.jpg" alt="4-4"></a>
-    <a href="https://i.ibb.co/Z6c97FNC/4-4-Copy-Copy-copy.jpg" target="_self"><img src="https://i.ibb.co/Z6c97FNC/4-4-Copy-Copy-copy.jpg" alt="4-4"></a>
-    <a href="https://i.ibb.co/8LbBv4xY/4-4-Copy-Copy.jpg" target="_self"><img src="https://i.ibb.co/8LbBv4xY/4-4-Copy-Copy.jpg" alt="4-4"></a>
-    <a href="https://i.ibb.co/ZRSHDJy8/4-4-Copy.jpg" target="_self"><img src="https://i.ibb.co/ZRSHDJy8/4-4-Copy.jpg" alt="4-4"></a>
-    <a href="https://i.ibb.co/Rp0y85LC/4-4.jpg" target="_self"><img src="https://i.ibb.co/Rp0y85LC/4-4.jpg" alt="4-4"></a>
-    <a href="https://i.ibb.co/xqYcwQp0/5-5.jpg" target="_self"><img src="https://i.ibb.co/xqYcwQp0/5-5.jpg" alt="5-5"></a>
-    <a href="https://i.ibb.co/BHHFM4R3/6-6.jpg" target="_self"><img src="https://i.ibb.co/BHHFM4R3/6-6.jpg" alt="6-6"></a>
-    <a href="https://i.ibb.co/9H2QRQzw/7-7.jpg" target="_self"><img src="https://i.ibb.co/9H2QRQzw/7-7.jpg" alt="7-7"></a>
-    <a href="https://i.ibb.co/JwBkZzBk/8-8.jpg" target="_self"><img src="https://i.ibb.co/JwBkZzBk/8-8.jpg" alt="8-8"></a>
-    <a href="https://i.ibb.co/Dfs6ntPM/554.jpg" target="_self"><img src="https://i.ibb.co/Dfs6ntPM/554.jpg" alt="554"></a>
-    <a href="https://i.ibb.co/kg747NKC/6484.jpg" target="_self"><img src="https://i.ibb.co/kg747NKC/6484.jpg" alt="6484"></a>
-  </div>
-  <div class="footer">
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-primaryBlack">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold section-title text-lightText">الأسئلة الشائعة</h2>
+      
+      <div class="space-y-4">
+        <details class="bg-cardBg p-4 rounded-lg border border-primaryRed border-opacity-20">
+          <summary class="font-semibold text-lg cursor-pointer focus:outline-none">كم تستغرق مدة التوصيل؟</summary>
+          <p class="mt-2 text-lightText">مدة التوصيل تتراوح بين 2-5 أيام عمل حسب المحافظة..</p>
+        </details>
+        
+        <details class="bg-cardBg p-4 rounded-lg border border-primaryRed border-opacity-20">
+          <summary class="font-semibold text-lg cursor-pointer focus:outline-none">ما هي طرق الدفع المتاحة؟</summary>
+          <p class="mt-2 text-lightText">نقبل الدفع نقداً عند الاستلام أو التحويل البنكي أو الدفع الإلكتروني عبر فودافون كاش و Etisalat Cash.</p>
+        </details>
+        
+        <details class="bg-cardBg p-4 rounded-lg border border-primaryRed border-opacity-20">
+          <summary class="font-semibold text-lg cursor-pointer focus:outline-none">هل يمكنني تخصيص الإطار بصورة من اختياري؟</summary>
+          <p class="mt-2 text-lightText">نعم، يمكنك رفع أي صورة تريدها وسنقوم بتأطيرها لك بأعلى جودة.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8">
+  <footer class="bg-primaryBlack text-lightText py-8 border-t border-primaryRed border-opacity-20">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-2xl font-['Pacifico'] mb-4">Amazon Studio</h2>
+      <h2 class="text-2xl font-['Pacifico'] mb-4 text-accentCopper">Amazon Studio</h2>
       <p class="mb-4">صور مؤطرة بجودة عالية - توصيل لجميع المحافظات</p>
       <div class="flex justify-center space-x-6 space-x-reverse mb-4">
-        <a href="https://wa.me/201101011416" target="_blank" class="hover:text-primary transition-colors">
-          <i class="ri-whatsapp-line text-2xl"></i>
+        <a href="https://wa.me/201101011416" target="_blank" class="whatsapp-button">
+          واتساب <i class="ri-whatsapp-line"></i>
         </a>
-        <a href="mailto:amazonneew2006@gmail.com" class="hover:text-primary transition-colors">
-          <i class="ri-mail-line text-2xl"></i>
+        <a href="https://www.instagram.com/amazonstudio31" target="_blank" class="instagram-button">
+          إنستجرام <i class="ri-instagram-line"></i>
         </a>
       </div>
-      <p class="text-sm text-gray-400">© 2023 Amazon Studio. جميع الحقوق محفوظة.</p>
+      <p class="text-sm text-gray-400">© <span id="currentYear"></span> Amazon Studio. جميع الحقوق محفوظة.</p>
     </div>
   </footer>
 
-  <!-- JS for Deposit Calculator and WhatsApp Order -->
+  <!-- Image Modal - تم تعديل هذا القسم -->
+  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50 p-4">
+    <div class="relative max-w-4xl w-full modal-content">
+      <button onclick="closeImageModal()" class="absolute -top-12 left-0 text-lightText hover:text-accentCopper text-3xl">
+        <i class="ri-close-line"></i>
+      </button>
+      <img id="modalImage" src="" alt="صورة مكبرة" class="w-full max-h-[70vh] object-contain rounded-lg border-2 border-accentCopper">
+      <div class="order-buttons-container">
+        <button onclick="orderCurrentImage('whatsapp')" class="order-btn-modal">
+          طلب عبر واتساب <i class="ri-whatsapp-line"></i>
+        </button>
+        <button onclick="orderCurrentImage('instagram')" class="order-btn-modal instagram">
+          طلب عبر إنستجرام <i class="ri-instagram-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('calculateBtn').addEventListener('click', function() {
-      const price = parseFloat(document.getElementById('priceInput').value);
-      const resultContainer = document.getElementById('resultContainer');
-      
-      if (!isNaN(price) && price > 0) {
-        const deposit = Math.round(price * 0.25);
-        const remaining = price - deposit;
-        
-        resultContainer.innerHTML = `
-          <div class="space-y-2">
-            <p class="text-lg">السعر الكامل: <span class="font-bold">${price}</span> جنيه</p>
-            <p class="text-lg">العربون (25%): <span class="font-bold text-primary">${deposit}</span> جنيه</p>
-            <p class="text-lg">المبلغ المتبقي: <span class="font-bold">${remaining}</span> جنيه</p>
-            <p class="text-sm text-gray-600 mt-2">سيتم دفع العربون عبر Etisalat Cash، والباقي عند الاستلام</p>
-          </div>
-        `;
-        resultContainer.classList.remove('hidden');
-      } else {
-        resultContainer.innerHTML = `
-          <p class="text-red-600 flex items-center">
-            <i class="ri-error-warning-line ml-1"></i>
-            من فضلك أدخل سعر صالح لحساب العربون
-          </p>
-        `;
-        resultContainer.classList.remove('hidden');
-      }
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Image gallery functionality
+    const galleryImages = document.querySelectorAll('.gallery-img');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    let currentImageAlt = ''; // تخزين وصف الصورة الحالية
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+        currentImageAlt = img.alt; // تخزين وصف الصورة الحالية
+        imageModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
     });
 
-    document.getElementById('orderNowBtn').addEventListener('click', () => {
-      const size = document.getElementById('sizeSelect').value;
-      if (!size) {
-        alert('من فضلك اختر المقاس أولاً');
+    function closeImageModal() {
+      imageModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // دالة لطلب الصورة الحالية عبر واتساب أو إنستجرام
+    function orderCurrentImage(platform) {
+      if (!currentImageAlt) return;
+      
+      let url, message;
+      
+      if (platform === 'whatsapp') {
+        message = `مرحباً، أنا مهتم بهذه الصورة: ${currentImageAlt}. أريد طلب إطار لها، هل يمكنكم مساعدتي؟`;
+        url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
+      } else {
+        message = `مهتم بهذه الصورة: ${currentImageAlt}`;
+        url = `https://www.instagram.com/amazonstudio31`;
+      }
+      
+      window.open(url, '_blank');
+      closeImageModal();
+    }
+
+    // Order functionality
+    const sizeSelect = document.getElementById('sizeSelect');
+    const orderWhatsappBtn = document.getElementById('orderWhatsappBtn');
+    const orderInstagramBtn = document.getElementById('orderInstagramBtn');
+
+    function handleOrder(platform) {
+      const selectedSize = sizeSelect.value;
+      if (!selectedSize) {
+        alert('الرجاء اختيار مقاس الإطار أولاً');
         return;
       }
       
-      const phoneNumber = '201101011416';
-      const message = `مرحباً، أود طلب إطار بمقاس: ${size}\n\nالرجاء تأكيد الطلب وتحديد طريقة الدفع.`;
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      let url, message = `مرحباً، أريد طلب إطار صورة بالمقاس: ${selectedSize}`;
+      
+      if (platform === 'whatsapp') {
+        url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
+      } else {
+        url = `https://www.instagram.com/amazonstudio31`;
+      }
+      
       window.open(url, '_blank');
+    }
+
+    orderWhatsappBtn.addEventListener('click', () => handleOrder('whatsapp'));
+    orderInstagramBtn.addEventListener('click', () => handleOrder('instagram'));
+
+    // Custom image upload functionality
+    const uploadBtn = document.getElementById('uploadBtn');
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadContainer = document.getElementById('uploadContainer');
+    const customOrderSection = document.getElementById('customOrderSection');
+    const customSizeSelect = document.getElementById('customSizeSelect');
+    const sendCustomWhatsappBtn = document.getElementById('sendCustomWhatsappBtn');
+    const sendCustomInstagramBtn = document.getElementById('sendCustomInstagramBtn');
+    const uploadSuccess = document.getElementById('uploadSuccess');
+
+    uploadBtn.addEventListener('click', () => imageUpload.click());
+    
+    uploadContainer.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadContainer.classList.add('border-primaryRed');
+    });
+    
+    uploadContainer.addEventListener('dragleave', () => {
+      uploadContainer.classList.remove('border-primaryRed');
+    });
+    
+    uploadContainer.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadContainer.classList.remove('border-primaryRed');
+      if (e.dataTransfer.files.length) {
+        imageUpload.files = e.dataTransfer.files;
+        handleImageUpload();
+      }
+    });
+
+    imageUpload.addEventListener('change', handleImageUpload);
+
+    function handleImageUpload() {
+      const file = imageUpload.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block';
+          customOrderSection.classList.remove('hidden');
+          uploadSuccess.style.display = 'block';
+          uploadContainer.classList.add('selected-image');
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleCustomOrder(platform) {
+      if (!customSizeSelect.value) {
+        alert('الرجاء اختيار مقاس الإطار أولاً');
+        return;
+      }
+      
+      const selectedSize = customSizeSelect.value;
+      let url, message = `مرحباً، أريد طلب إطار صورة مخصص بالمقاس: ${selectedSize}`;
+      
+      if (platform === 'whatsapp') {
+        url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
+      } else {
+        url = `https://www.instagram.com/amazonstudio31`;
+      }
+      
+      window.open(url, '_blank');
+    }
+
+    sendCustomWhatsappBtn.addEventListener('click', () => handleCustomOrder('whatsapp'));
+    sendCustomInstagramBtn.addEventListener('click', () => handleCustomOrder('instagram'));
+
+    // Deposit calculator functionality
+    const calculateBtn = document.getElementById('calculateBtn');
+    const priceInput = document.getElementById('priceInput');
+    const resultContainer = document.getElementById('resultContainer');
+
+    calculateBtn.addEventListener('click', () => {
+      const price = parseFloat(priceInput.value);
+      if (isNaN(price)) {
+        alert('الرجاء إدخال سعر صحيح');
+        return;
+      }
+      
+      const deposit = price * 0.25;
+      const remaining = price - deposit;
+      
+      resultContainer.innerHTML = `
+        <p class="font-semibold">السعر الكامل: <span class="text-accentCopper">${price.toFixed(2)} جنيه</span></p>
+        <p class="font-semibold">العربون (25%): <span class="text-primaryRed">${deposit.toFixed(2)} جنيه</span></p>
+        <p class="font-semibold">المبلغ المتبقي: <span class="text-accentCopper">${remaining.toFixed(2)} جنيه</span></p>
+        <p class="text-sm mt-2">(يدفع عند الاستلام)</p>
+      `;
+      
+      resultContainer.classList.remove('hidden');
     });
   </script>
 </body>
