@@ -5,17 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="description" content="استوديو أمازون لبيع الصور المؤطرة بجودة عالية مع التوصيل لجميع المحافظات. اطلب الآن عبر واتساب.">
   <meta name="keywords" content="صور مؤطرة, براويز صور, إطارات فنية, ديكور منزلي, صور فاخرة">
-  <link rel="icon" href="favicon.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05BY9GHQS1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-05BY9GHQS1');
-  </script> 
-  <meta name="google-site-verification" content="xie_Ixsx3Avy1lzL5FSAUFetRAWvehhbYLgNxfkoSLc" />
   <script src="https://cdn.tailwindcss.com/3.4.1"></script>
   <script>
     tailwind.config = {
@@ -145,7 +136,6 @@
       box-shadow: 0 0 15px rgba(209, 0, 0, 0.5);
     }
     
-    /* تم إضافة هذه التنسيقات الجديدة */
     .modal-content {
       position: relative;
       display: flex;
@@ -195,7 +185,6 @@
       display: none;
     }
     
-    /* زر الإغلاق الجديد */
     .modal-close-btn {
       position: absolute;
       top: 20px;
@@ -220,7 +209,6 @@
       transform: rotate(90deg);
     }
     
-    /* زر الرجوع للصورة السابقة */
     .nav-btn {
       position: absolute;
       top: 50%;
@@ -251,6 +239,88 @@
     .next-btn {
       left: 20px;
     }
+
+    /* أنماط جديدة للعروض */
+    .special-offer-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .special-offer-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: #D10000;
+    }
+    
+    .offer-card {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .offer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(209, 0, 0, 0.3);
+      border-color: #D10000;
+    }
+    
+    .offer-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: linear-gradient(45deg, #B87333, #D10000);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 10;
+    }
+    
+    .discount-badge {
+      background: linear-gradient(45deg, #D10000, #B80000);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    .gift-icon {
+      color: #B87333;
+      font-size: 20px;
+      margin-left: 5px;
+    }
+    
+    .special-offers-section {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    }
+    
+    .offer-highlight {
+      border: 2px solid #B87333;
+      box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+    }
+    
+    .special-offer-card {
+      background: linear-gradient(145deg, #1e1e1e, #161616);
+      border: 1px solid #2c2c2c;
+    }
+    
+    .offer-content {
+      flex-grow: 1;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -279,6 +349,103 @@
         <a href="#gallery" class="bg-primaryRed hover:bg-opacity-90 text-lightText px-8 py-3 rounded-button font-bold text-lg inline-block transition-all hover:shadow-lg transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50">
           اطلع على المعرض
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Offers Section -->
+  <section class="py-16 special-offers-section">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold special-offer-title text-lightText">🎉 عروض حصرية محدودة!</h2>
+        <p class="text-xl text-accentCopper">خلي صورك تحكي أجمل الذكريات معانا 🖼️✨</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- Offer 1 -->
+        <div class="offer-card bg-cardBg p-6 rounded-xl shadow-lg relative offer-highlight">
+          <div class="offer-badge">العرض الأكثر طلباً</div>
+          <div class="offer-content">
+            <h3 class="text-2xl font-bold mb-4 text-primaryRed">عرض البرواز الكبير + هدية رومانسية</h3>
+            <ul class="space-y-3 text-lightText">
+              <li class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
+                اشترِ برواز 30×40 سم
+              </li>
+              <li class="flex items-center">
+                <i class="ri-gift-fill text-accentCopper ml-2"></i>
+                واحصل مجانًا على برواز 20×25 سم
+              </li>
+            </ul>
+            <p class="mt-4 text-gray-300">(مثالي لصورة رئيسية مع صورة جانبية رومانسية)</p>
+          </div>
+          <div class="mt-6">
+            <button onclick="handleSpecialOffer('عرض البرواز الكبير 30×40 سم + هدية 20×25 سم')" class="w-full bg-primaryRed hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center">
+              اطلب الآن <i class="ri-arrow-left-line ml-2"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Offer 2 -->
+        <div class="offer-card bg-cardBg p-6 rounded-xl shadow-lg relative offer-highlight">
+          <div class="offer-badge">عرض مميز</div>
+          <div class="offer-content">
+            <h3 class="text-2xl font-bold mb-4 text-accentCopper">عرض البرواز الضخم + هدية عملية</h3>
+            <ul class="space-y-3 text-lightText">
+              <li class="flex items-center">
+                <i class="ri-checkbox-circle-fill text-primaryRed ml-2"></i>
+                اشترِ برواز 50×70 سم
+              </li>
+              <li class="flex items-center">
+                <i class="ri-gift-fill text-primaryRed ml-2"></i>
+                واحصل مجانًا على برواز 20×30 سم
+              </li>
+            </ul>
+            <p class="mt-4 text-gray-300">(مثالي لصورة جدارية كبيرة + برواز مكتبي أو لغرفة النوم)</p>
+          </div>
+          <div class="mt-6">
+            <button onclick="handleSpecialOffer('عرض البرواز الضخم 50×70 سم + هدية 20×30 سم')" class="w-full bg-accentCopper hover:bg-opacity-90 text-darkText px-6 py-3 rounded-button font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center">
+              اطلب الآن <i class="ri-arrow-left-line ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Discount Offers -->
+      <div class="bg-cardBg p-8 rounded-xl border border-primaryRed border-opacity-20 shadow-lg">
+        <h3 class="text-2xl font-bold text-center mb-8 text-lightText">عروض تفصيل خاصة بلمستك! <span class="best-seller">(خصومات تصل لـ 30٪)</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="special-offer-card bg-darkBg p-6 rounded-lg border border-accentCopper border-opacity-30">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="text-xl font-semibold text-lightText">برواز 30×60 سم</h4>
+              <span class="discount-badge">خصم 30٪</span>
+            </div>
+            <p class="text-gray-300 mb-4">(بانورامي مميز للصور الأفقية)</p>
+            <button onclick="handleSpecialOffer('برواز 30×60 سم - خصم 30٪')" class="w-full bg-primaryRed bg-opacity-80 hover:bg-opacity-100 text-lightText px-4 py-3 rounded-button font-bold transition-all">
+              اطلب الخصم <i class="ri-arrow-left-line ml-1"></i>
+            </button>
+          </div>
+          
+          <div class="special-offer-card bg-darkBg p-6 rounded-lg border border-accentCopper border-opacity-30">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="text-xl font-semibold text-lightText">برواز 40×50 سم</h4>
+              <span class="discount-badge">خصم 25٪</span>
+            </div>
+            <p class="text-gray-300 mb-4">(كلاسيكي أنيق للبورتريهات)</p>
+            <button onclick="handleSpecialOffer('برواز 40×50 سم - خصم 25٪')" class="w-full bg-accentCopper hover:bg-opacity-90 text-darkText px-4 py-3 rounded-button font-bold transition-all">
+              اطلب الخصم <i class="ri-arrow-left-line ml-1"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center pt-6 border-t border-gray-700">
+          <p class="text-lightText text-lg">
+            <i class="ri-palette-line gift-icon"></i> 
+            <span class="text-accentCopper font-bold">ميزة إضافية:</span> 
+            فصل البرواز على ذوقك الخاص! اختر المقاس، اللون، والإطار اللي يناسب ديكورك 💫
+          </p>
+          <p class="text-sm text-gray-400 mt-4">📌 ملاحظة: العروض لا تُجمع – اختر العرض اللي يناسبك</p>
+        </div>
       </div>
     </div>
   </section>
@@ -654,7 +821,7 @@
     </div>
   </footer>
 
-  <!-- Image Modal - تم تعديل هذا القسم -->
+  <!-- Image Modal -->
   <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50 p-4">
     <div class="relative max-w-4xl w-full modal-content">
       <button id="modalCloseBtn" class="modal-close-btn">
@@ -845,6 +1012,13 @@
       
       resultContainer.classList.remove('hidden');
     });
+
+    // دالة جديدة للتعامل مع طلبات العروض
+    function handleSpecialOffer(offerName) {
+      const message = `مرحباً، أنا مهتم بالعرض التالي: ${offerName}. هل يمكنكم مساعدتي في الطلب؟`;
+      const url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
   </script>
 </body>
 </html>
