@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="description" content="استوديو أمازون لبيع الصور المؤطرة بجودة عالية مع التوصيل لجميع المحافظات. اطلب الآن عبر واتساب.">
   <meta name="keywords" content="صور مؤطرة, براويز صور, إطارات فنية, ديكور منزلي, صور فاخرة">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+  <link rel="icon" href="favicon.png" />
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-05BY9GHQS1"></script>
@@ -47,7 +47,6 @@
       font-family: 'Cairo', sans-serif;
       background-color: #0A0A0A;
       color: #F0F0F0;
-      overflow-x: hidden;
     }
     input[type='number']::-webkit-inner-spin-button,
     input[type='number']::-webkit-outer-spin-button {
@@ -57,45 +56,20 @@
     .gallery-img-container {
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
     .gallery-img {
       height: 300px;
       object-fit: cover;
       transition: transform 0.3s ease;
       cursor: pointer;
-      width: 100%;
     }
     .gallery-img-container:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
-    .gallery-img-container:hover .gallery-img {
-      transform: scale(1.05);
-    }
-    .gallery-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .gallery-img-container:hover .gallery-overlay {
-      opacity: 1;
-    }
-    .gallery-overlay i {
-      color: white;
-      font-size: 2rem;
-      background: rgba(209, 0, 0, 0.7);
-      padding: 10px;
-      border-radius: 50%;
+    .gallery-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(209, 0, 0, 0.3);
     }
     .whatsapp-button, .instagram-button {
       display: inline-flex;
@@ -120,9 +94,6 @@
     }
     #imageModal {
       backdrop-filter: blur(5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .price-item {
       border-right: 3px solid #B87333;
@@ -173,101 +144,35 @@
       box-shadow: 0 0 15px rgba(209, 0, 0, 0.5);
     }
     
-    /* تحسينات جديدة للمودال */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      cursor: pointer;
-      z-index: 40;
-    }
-    
+    /* تم إضافة هذه التنسيقات الجديدة */
     .modal-content {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(26, 26, 26, 0.95);
-      padding: 25px;
-      border-radius: 20px;
-      max-width: 90%;
-      max-height: 90vh;
-      overflow: auto;
-      z-index: 50;
-      animation: modalAppear 0.3s ease-out;
-      box-shadow: 0 0 30px rgba(209, 0, 0, 0.3);
-      border: 2px solid #B87333;
-    }
-    
-    @keyframes modalAppear {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: #D10000;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 60;
-    }
-    
-    .close-btn:hover {
-      transform: rotate(90deg);
-      background: #B80000;
-    }
-    
-    .close-btn i {
-      color: #F0F0F0;
-      font-size: 28px;
-    }
-    
-    .modal-title {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      max-width: 80%;
-      text-align: center;
     }
     
     .order-buttons-container {
       display: flex;
       gap: 15px;
-      margin-top: 25px;
+      margin-top: 20px;
       width: 100%;
       justify-content: center;
-      flex-wrap: wrap;
     }
     
     .order-btn-modal {
       background-color: #25D366;
       color: white;
-      padding: 12px 25px;
+      padding: 10px 20px;
       border-radius: 8px;
       font-weight: bold;
       display: flex;
       align-items: center;
       transition: all 0.3s ease;
       font-family: 'Cairo', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       border: none;
       cursor: pointer;
-      min-width: 200px;
-      justify-content: center;
     }
     
     .order-btn-modal.instagram {
@@ -276,12 +181,10 @@
     
     .order-btn-modal:hover {
       transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     
     .order-btn-modal i {
-      margin-left: 10px;
-      font-size: 1.2rem;
+      margin-left: 8px;
     }
     
     .upload-success {
@@ -291,42 +194,61 @@
       display: none;
     }
     
-    /* تحسينات للجوال */
-    @media (max-width: 768px) {
-      .gallery-img {
-        height: 200px;
-      }
-      
-      .order-buttons-container {
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      .order-btn-modal {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        min-width: auto;
-      }
-      
-      .modal-content {
-        padding: 15px;
-      }
-      
-      .hero-content {
-        padding: 20px;
-      }
-      
-      .close-btn {
-        top: 10px;
-        left: 10px;
-        width: 35px;
-        height: 35px;
-      }
-      
-      .close-btn i {
-        font-size: 24px;
-      }
+    /* زر الإغلاق الجديد */
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #D10000;
+      color: #F0F0F0;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-close-btn:hover {
+      background-color: #D10000;
+      transform: rotate(90deg);
+    }
+    
+    /* زر الرجوع للصورة السابقة */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 2px solid #B87333;
+      color: #F0F0F0;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-btn:hover {
+      background-color: #B87333;
+    }
+    
+    .prev-btn {
+      right: 20px;
+    }
+    
+    .next-btn {
+      left: 20px;
     }
   </style>
 </head>
@@ -350,7 +272,7 @@
   <!-- Hero Section -->
   <section class="relative bg-cover bg-center min-h-[300px] md:h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://i.ibb.co/93wyymzH/203a9d098f06541a1fd7e26b2eb71e29.jpg')">
     <div class="container mx-auto px-4 h-full flex items-center justify-end">
-      <div class="text-center text-lightText max-w-lg mx-auto hero-content">
+      <div class="text-center text-lightText max-w-lg mx-auto">
         <h2 class="text-3xl md:text-5xl font-bold mb-4 text-primaryRed">Amazon Studio – صور مؤطرة فاخرة</h2>
         <p class="text-base md:text-lg mb-6">توصيل للمنزل مع ضمان الجودة</p>
         <a href="#gallery" class="bg-primaryRed hover:bg-opacity-90 text-lightText px-8 py-3 rounded-button font-bold text-lg inline-block transition-all hover:shadow-lg transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50">
@@ -581,51 +503,75 @@
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/5V9LFjN/1-1.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/TBNdSzgJ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية مودرن" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/Ndv7XyZQ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/fdkWzS2w/2-2-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/sv45bV68/2-2-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/M5QPPwC1/2-2-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/XfHmzCns/2-2-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
           <img src="https://i.ibb.co/xS9vhSCx/2-2-Copy-Copy-Copy-2-Copy.jpg" alt="إطار صورة زجاجية أنيقة" class="gallery-img w-full">
-          <div class="gallery-overlay">
-            <i class="ri-zoom-in-line"></i>
-          </div>
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/d0Pc7K0z/2-2-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/qM4sVFVh/2-2-Copy-Copy-Copy-3-Copy.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/0y9fX8Rj/2-2-Copy-Copy-Copy-3.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/VYdcZDCT/2-2.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/ZRByC1M5/3-3.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/v6B47mnk/4-4-Copy-Copy-copy-2.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Z6c97FNC/4-4-Copy-Copy-copy.jpg" alt="إطار صورة خشبية أنيقة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/8LbBv4xY/4-4-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/ZRSHDJy8/4-4-Copy.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Rp0y85LC/4-4.jpg" alt="إطار صورة زجاجية كلاسيكية" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/xqYcwQp0/5-5.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/BHHFM4R3/6-6.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/9H2QRQzw/7-7.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/JwBkZzBk/8-8.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/Dfs6ntPM/554.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+        </div>
+        <div class="gallery-img-container rounded-lg overflow-hidden">
+          <img src="https://i.ibb.co/kg747NKC/6484.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
         </div>
       </div>
     </div>
@@ -707,15 +653,13 @@
     </div>
   </footer>
 
-  <!-- Image Modal - تم تعديله بالكامل -->
+  <!-- Image Modal - تم تعديل هذا القسم -->
   <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50 p-4">
-    <div class="modal-overlay" onclick="closeImageModal()"></div>
-    <div class="modal-content">
-      <div class="close-btn" onclick="closeImageModal()">
+    <div class="relative max-w-4xl w-full modal-content">
+      <button id="modalCloseBtn" class="modal-close-btn">
         <i class="ri-close-line"></i>
-      </div>
-      <div class="modal-title" id="modalTitle">صورة مكبرة</div>
-      <img id="modalImage" src="" alt="صورة مكبرة" class="w-full max-h-[70vh] object-contain rounded-lg">
+      </button>
+      <img id="modalImage" src="" alt="صورة مكبرة" class="w-full max-h-[70vh] object-contain rounded-lg border-2 border-accentCopper">
       <div class="order-buttons-container">
         <button onclick="orderCurrentImage('whatsapp')" class="order-btn-modal">
           طلب عبر واتساب <i class="ri-whatsapp-line"></i>
@@ -732,21 +676,17 @@
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
     // Image gallery functionality
-    const galleryImages = document.querySelectorAll('.gallery-img-container');
+    const galleryImages = document.querySelectorAll('.gallery-img');
     const imageModal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalTitle');
-    let currentImageAlt = '';
-    let currentImageSrc = '';
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    let currentImageAlt = ''; // تخزين وصف الصورة الحالية
 
-    galleryImages.forEach(container => {
-      const img = container.querySelector('.gallery-img');
-      container.addEventListener('click', () => {
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
         modalImage.src = img.src;
         modalImage.alt = img.alt;
-        modalTitle.textContent = img.alt;
-        currentImageAlt = img.alt;
-        currentImageSrc = img.src;
+        currentImageAlt = img.alt; // تخزين وصف الصورة الحالية
         imageModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       });
@@ -756,13 +696,6 @@
       imageModal.classList.add('hidden');
       document.body.style.overflow = 'auto';
     }
-    
-    // إغلاق المودال عند الضغط على مفتاح ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !imageModal.classList.contains('hidden')) {
-        closeImageModal();
-      }
-    });
     
     // دالة لطلب الصورة الحالية عبر واتساب أو إنستجرام
     function orderCurrentImage(platform) {
@@ -779,7 +712,18 @@
       }
       
       window.open(url, '_blank');
+      closeImageModal();
     }
+
+    // إغلاق المودال عند النقر على زر الإغلاق
+    modalCloseBtn.addEventListener('click', closeImageModal);
+    
+    // إغلاق المودال عند النقر خارج الصورة
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        closeImageModal();
+      }
+    });
 
     // Order functionality
     const sizeSelect = document.getElementById('sizeSelect');
