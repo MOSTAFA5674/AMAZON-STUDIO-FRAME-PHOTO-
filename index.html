@@ -7,6 +7,16 @@
   <meta name="keywords" content="صور مؤطرة, براويز صور, إطارات فنية, ديكور منزلي, صور فاخرة">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
   <title>Amazon Studio - صور مؤطرة فاخرة</title>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05BY9GHQS1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-05BY9GHQS1');
+  </script>
+  
   <script src="https://cdn.tailwindcss.com/3.4.1"></script>
   <script>
     tailwind.config = {
@@ -136,6 +146,7 @@
       box-shadow: 0 0 15px rgba(209, 0, 0, 0.5);
     }
     
+    /* تحسينات للواجهة */
     .modal-content {
       position: relative;
       display: flex;
@@ -185,6 +196,7 @@
       display: none;
     }
     
+    /* زر الإغلاق */
     .modal-close-btn {
       position: absolute;
       top: 20px;
@@ -209,11 +221,12 @@
       transform: rotate(90deg);
     }
     
+    /* أزرار التنقل بين الصور */
     .nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.7);
       border: 2px solid #B87333;
       color: #F0F0F0;
       border-radius: 50%;
@@ -230,6 +243,7 @@
     
     .nav-btn:hover {
       background-color: #B87333;
+      transform: translateY(-50%) scale(1.1);
     }
     
     .prev-btn {
@@ -239,87 +253,70 @@
     .next-btn {
       left: 20px;
     }
-
-    /* أنماط جديدة للعروض */
-    .special-offer-title {
-      position: relative;
-      padding-bottom: 15px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
     
-    .special-offer-title:after {
-      content: '';
+    /* مؤشر الصورة الحالية */
+    .image-counter {
       position: absolute;
-      bottom: 0;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background: #D10000;
-    }
-    
-    .offer-card {
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-      overflow: hidden;
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .offer-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(209, 0, 0, 0.3);
-      border-color: #D10000;
-    }
-    
-    .offer-badge {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: linear-gradient(45deg, #B87333, #D10000);
-      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #F0F0F0;
       padding: 5px 15px;
       border-radius: 20px;
-      font-weight: bold;
       font-size: 14px;
-      z-index: 10;
+      z-index: 100;
     }
     
-    .discount-badge {
-      background: linear-gradient(45deg, #D10000, #B80000);
-      color: white;
-      padding: 3px 10px;
-      border-radius: 5px;
-      font-weight: bold;
-      display: inline-block;
-      margin-right: 10px;
+    /* تحسينات للواجهة على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      .gallery-img {
+        height: 200px;
+      }
+      
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      
+      .prev-btn {
+        right: 10px;
+      }
+      
+      .next-btn {
+        left: 10px;
+      }
+      
+      .modal-close-btn {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      
+      .order-buttons-container {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
     
-    .gift-icon {
-      color: #B87333;
-      font-size: 20px;
-      margin-left: 5px;
+    /* تحسينات إضافية */
+    .whatsapp-share-container {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: rgba(37, 211, 102, 0.1);
+      border-radius: 8px;
+      border: 1px solid #25D366;
     }
     
-    .special-offers-section {
-      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-    }
-    
-    .offer-highlight {
-      border: 2px solid #B87333;
-      box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
-    }
-    
-    .special-offer-card {
-      background: linear-gradient(145deg, #1e1e1e, #161616);
-      border: 1px solid #2c2c2c;
-    }
-    
-    .offer-content {
-      flex-grow: 1;
+    .uploaded-image-preview {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 8px;
+      margin: 10px 0;
+      display: none;
     }
   </style>
 </head>
@@ -341,7 +338,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative bg-cover bg-center min-h-[300px] md:h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://i.ibb.co/93wyymzH/203a9d098f06541a1fd7e26b2eb71e29.jpg')">
+  <section class="relative bg-cover bg-center min-h-[300px] md:h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
     <div class="container mx-auto px-4 h-full flex items-center justify-end">
       <div class="text-center text-lightText max-w-lg mx-auto">
         <h2 class="text-3xl md:text-5xl font-bold mb-4 text-primaryRed">Amazon Studio – صور مؤطرة فاخرة</h2>
@@ -349,103 +346,6 @@
         <a href="#gallery" class="bg-primaryRed hover:bg-opacity-90 text-lightText px-8 py-3 rounded-button font-bold text-lg inline-block transition-all hover:shadow-lg transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50">
           اطلع على المعرض
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Special Offers Section -->
-  <section class="py-16 special-offers-section">
-    <div class="container mx-auto px-4 max-w-6xl">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold special-offer-title text-lightText">🎉 عروض حصرية محدودة!</h2>
-        <p class="text-xl text-accentCopper">خلي صورك تحكي أجمل الذكريات معانا 🖼️✨</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <!-- Offer 1 -->
-        <div class="offer-card bg-cardBg p-6 rounded-xl shadow-lg relative offer-highlight">
-          <div class="offer-badge">العرض الأكثر طلباً</div>
-          <div class="offer-content">
-            <h3 class="text-2xl font-bold mb-4 text-primaryRed">عرض البرواز الكبير + هدية رومانسية</h3>
-            <ul class="space-y-3 text-lightText">
-              <li class="flex items-center">
-                <i class="ri-checkbox-circle-fill text-accentCopper ml-2"></i>
-                اشترِ برواز 30×40 سم
-              </li>
-              <li class="flex items-center">
-                <i class="ri-gift-fill text-accentCopper ml-2"></i>
-                واحصل مجانًا على برواز 20×25 سم
-              </li>
-            </ul>
-            <p class="mt-4 text-gray-300">(مثالي لصورة رئيسية مع صورة جانبية رومانسية)</p>
-          </div>
-          <div class="mt-6">
-            <button onclick="handleSpecialOffer('عرض البرواز الكبير 30×40 سم + هدية 20×25 سم')" class="w-full bg-primaryRed hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center">
-              اطلب الآن <i class="ri-arrow-left-line ml-2"></i>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Offer 2 -->
-        <div class="offer-card bg-cardBg p-6 rounded-xl shadow-lg relative offer-highlight">
-          <div class="offer-badge">عرض مميز</div>
-          <div class="offer-content">
-            <h3 class="text-2xl font-bold mb-4 text-accentCopper">عرض البرواز الضخم + هدية عملية</h3>
-            <ul class="space-y-3 text-lightText">
-              <li class="flex items-center">
-                <i class="ri-checkbox-circle-fill text-primaryRed ml-2"></i>
-                اشترِ برواز 50×70 سم
-              </li>
-              <li class="flex items-center">
-                <i class="ri-gift-fill text-primaryRed ml-2"></i>
-                واحصل مجانًا على برواز 20×30 سم
-              </li>
-            </ul>
-            <p class="mt-4 text-gray-300">(مثالي لصورة جدارية كبيرة + برواز مكتبي أو لغرفة النوم)</p>
-          </div>
-          <div class="mt-6">
-            <button onclick="handleSpecialOffer('عرض البرواز الضخم 50×70 سم + هدية 20×30 سم')" class="w-full bg-accentCopper hover:bg-opacity-90 text-darkText px-6 py-3 rounded-button font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center">
-              اطلب الآن <i class="ri-arrow-left-line ml-2"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Discount Offers -->
-      <div class="bg-cardBg p-8 rounded-xl border border-primaryRed border-opacity-20 shadow-lg">
-        <h3 class="text-2xl font-bold text-center mb-8 text-lightText">عروض تفصيل خاصة بلمستك! <span class="best-seller">(خصومات تصل لـ 30٪)</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="special-offer-card bg-darkBg p-6 rounded-lg border border-accentCopper border-opacity-30">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="text-xl font-semibold text-lightText">برواز 30×60 سم</h4>
-              <span class="discount-badge">خصم 30٪</span>
-            </div>
-            <p class="text-gray-300 mb-4">(بانورامي مميز للصور الأفقية)</p>
-            <button onclick="handleSpecialOffer('برواز 30×60 سم - خصم 30٪')" class="w-full bg-primaryRed bg-opacity-80 hover:bg-opacity-100 text-lightText px-4 py-3 rounded-button font-bold transition-all">
-              اطلب الخصم <i class="ri-arrow-left-line ml-1"></i>
-            </button>
-          </div>
-          
-          <div class="special-offer-card bg-darkBg p-6 rounded-lg border border-accentCopper border-opacity-30">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="text-xl font-semibold text-lightText">برواز 40×50 سم</h4>
-              <span class="discount-badge">خصم 25٪</span>
-            </div>
-            <p class="text-gray-300 mb-4">(كلاسيكي أنيق للبورتريهات)</p>
-            <button onclick="handleSpecialOffer('برواز 40×50 سم - خصم 25٪')" class="w-full bg-accentCopper hover:bg-opacity-90 text-darkText px-4 py-3 rounded-button font-bold transition-all">
-              اطلب الخصم <i class="ri-arrow-left-line ml-1"></i>
-            </button>
-          </div>
-        </div>
-        
-        <div class="mt-8 text-center pt-6 border-t border-gray-700">
-          <p class="text-lightText text-lg">
-            <i class="ri-palette-line gift-icon"></i> 
-            <span class="text-accentCopper font-bold">ميزة إضافية:</span> 
-            فصل البرواز على ذوقك الخاص! اختر المقاس، اللون، والإطار اللي يناسب ديكورك 💫
-          </p>
-          <p class="text-sm text-gray-400 mt-4">📌 ملاحظة: العروض لا تُجمع – اختر العرض اللي يناسبك</p>
-        </div>
       </div>
     </div>
   </section>
@@ -490,7 +390,18 @@
               <option value="60×90 سم زجاج – 500 جنيه">60×90 سم زجاج – 500 جنيه</option>
             </optgroup>
           </select>
-          <div class="flex gap-4">
+          
+          <!-- قسم مشاركة الصورة عبر واتساب -->
+          <div class="whatsapp-share-container hidden" id="whatsappShareContainer">
+            <h4 class="text-lg font-semibold mb-2 text-[#25D366]">مشاركة الصورة عبر واتساب</h4>
+            <img id="uploadedImagePreview" class="uploaded-image-preview" alt="الصورة المرفوعة">
+            <p class="text-sm mb-3">انقر أدناه لمشاركة هذه الصورة مباشرة عبر واتساب</p>
+            <button id="shareImageWhatsappBtn" class="w-full bg-[#25D366] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
+              <i class="ri-whatsapp-line ml-2"></i> مشاركة الصورة عبر واتساب
+            </button>
+          </div>
+          
+          <div class="flex gap-4 mt-4">
             <button id="sendCustomWhatsappBtn" class="flex-1 bg-[#25D366] hover:bg-opacity-90 text-lightText px-6 py-3 rounded-button font-bold transition-all focus:outline-none focus:ring-2 focus:ring-accentCopper focus:ring-opacity-50 transform hover:-translate-y-1 flex items-center justify-center">
               <i class="ri-whatsapp-line ml-2"></i> واتساب
             </button>
@@ -669,77 +580,30 @@
       <h2 class="text-3xl font-bold section-title text-lightText">معرض أعمالنا</h2>
       
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- سيتم إضافة الصور هنا -->
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/5V9LFjN/1-1.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=958&q=80" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/TBNdSzgJ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية مودرن" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2062&q=80" alt="إطار صورة زجاجية مودرن" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/Ndv7XyZQ/2-2-Copy-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1578321272177-44c1864baa85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/fdkWzS2w/2-2-Copy-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/sv45bV68/2-2-Copy-Copy-Copy-Copy-Copy-2.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=958&q=80" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/M5QPPwC1/2-2-Copy-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2062&q=80" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/XfHmzCns/2-2-Copy-Copy-Copy-Copy.jpg" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1578321272177-44c1864baa85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="إطار صورة خشبية كلاسيكية" class="gallery-img w-full">
         </div>
         <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/xS9vhSCx/2-2-Copy-Copy-Copy-2-Copy.jpg" alt="إطار صورة زجاجية أنيقة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/d0Pc7K0z/2-2-Copy-Copy-Copy-2.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/qM4sVFVh/2-2-Copy-Copy-Copy-3-Copy.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/0y9fX8Rj/2-2-Copy-Copy-Copy-3.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/VYdcZDCT/2-2.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/ZRByC1M5/3-3.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/v6B47mnk/4-4-Copy-Copy-copy-2.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/Z6c97FNC/4-4-Copy-Copy-copy.jpg" alt="إطار صورة خشبية أنيقة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/8LbBv4xY/4-4-Copy-Copy.jpg" alt="إطار صورة زجاجية صغيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/ZRSHDJy8/4-4-Copy.jpg" alt="إطار صورة خشبية فاخرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/Rp0y85LC/4-4.jpg" alt="إطار صورة زجاجية كلاسيكية" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/xqYcwQp0/5-5.jpg" alt="إطار صورة خشبية كبيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/BHHFM4R3/6-6.jpg" alt="إطار صورة زجاجية متوسطة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/9H2QRQzw/7-7.jpg" alt="إطار صورة خشبية صغيرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/JwBkZzBk/8-8.jpg" alt="إطار صورة زجاجية فاخرة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/Dfs6ntPM/554.jpg" alt="إطار صورة كلاسيكية متوسطة" class="gallery-img w-full">
-        </div>
-        <div class="gallery-img-container rounded-lg overflow-hidden">
-          <img src="https://i.ibb.co/kg747NKC/6484.jpg" alt="إطار صورة زجاجية كبيرة" class="gallery-img w-full">
+          <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="إطار صورة زجاجية أنيقة" class="gallery-img w-full">
         </div>
       </div>
     </div>
@@ -827,6 +691,13 @@
       <button id="modalCloseBtn" class="modal-close-btn">
         <i class="ri-close-line"></i>
       </button>
+      <button id="prevBtn" class="nav-btn prev-btn">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+      <button id="nextBtn" class="nav-btn next-btn">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <div class="image-counter" id="imageCounter"></div>
       <img id="modalImage" src="" alt="صورة مكبرة" class="w-full max-h-[70vh] object-contain rounded-lg border-2 border-accentCopper">
       <div class="order-buttons-container">
         <button onclick="orderCurrentImage('whatsapp')" class="order-btn-modal">
@@ -848,17 +719,40 @@
     const imageModal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
-    let currentImageAlt = ''; // تخزين وصف الصورة الحالية
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const imageCounter = document.getElementById('imageCounter');
+    
+    let currentImageIndex = 0;
+    let currentImageAlt = '';
+    const imageUrls = Array.from(galleryImages).map(img => img.src);
+    const imageAlts = Array.from(galleryImages).map(img => img.alt);
 
-    galleryImages.forEach(img => {
+    galleryImages.forEach((img, index) => {
       img.addEventListener('click', () => {
-        modalImage.src = img.src;
-        modalImage.alt = img.alt;
-        currentImageAlt = img.alt; // تخزين وصف الصورة الحالية
+        currentImageIndex = index;
+        showImage(currentImageIndex);
         imageModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       });
     });
+
+    function showImage(index) {
+      modalImage.src = imageUrls[index];
+      modalImage.alt = imageAlts[index];
+      currentImageAlt = imageAlts[index];
+      imageCounter.textContent = `${index + 1} / ${imageUrls.length}`;
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+      showImage(currentImageIndex);
+    }
+
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length;
+      showImage(currentImageIndex);
+    }
 
     function closeImageModal() {
       imageModal.classList.add('hidden');
@@ -883,8 +777,23 @@
       closeImageModal();
     }
 
-    // إغلاق المودال عند النقر على زر الإغلاق
+    // إضافة مستمعي الأحداث للأزرار
     modalCloseBtn.addEventListener('click', closeImageModal);
+    prevBtn.addEventListener('click', prevImage);
+    nextBtn.addEventListener('click', nextImage);
+    
+    // إضافة التنقل باستخدام لوحة المفاتيح
+    document.addEventListener('keydown', (e) => {
+      if (imageModal.classList.contains('hidden')) return;
+      
+      if (e.key === 'ArrowRight' || e.key === 'Right') {
+        prevImage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+        nextImage();
+      } else if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
     
     // إغلاق المودال عند النقر خارج الصورة
     imageModal.addEventListener('click', (e) => {
@@ -929,6 +838,11 @@
     const sendCustomWhatsappBtn = document.getElementById('sendCustomWhatsappBtn');
     const sendCustomInstagramBtn = document.getElementById('sendCustomInstagramBtn');
     const uploadSuccess = document.getElementById('uploadSuccess');
+    const whatsappShareContainer = document.getElementById('whatsappShareContainer');
+    const uploadedImagePreview = document.getElementById('uploadedImagePreview');
+    const shareImageWhatsappBtn = document.getElementById('shareImageWhatsappBtn');
+    
+    let uploadedImageFile = null;
 
     uploadBtn.addEventListener('click', () => imageUpload.click());
     
@@ -955,11 +869,15 @@
     function handleImageUpload() {
       const file = imageUpload.files[0];
       if (file) {
+        uploadedImageFile = file;
         const reader = new FileReader();
         reader.onload = function(e) {
           imagePreview.src = e.target.result;
           imagePreview.style.display = 'block';
+          uploadedImagePreview.src = e.target.result;
+          uploadedImagePreview.style.display = 'block';
           customOrderSection.classList.remove('hidden');
+          whatsappShareContainer.classList.remove('hidden');
           uploadSuccess.style.display = 'block';
           uploadContainer.classList.add('selected-image');
         }
@@ -988,6 +906,38 @@
     sendCustomWhatsappBtn.addEventListener('click', () => handleCustomOrder('whatsapp'));
     sendCustomInstagramBtn.addEventListener('click', () => handleCustomOrder('instagram'));
 
+    // ميزة مشاركة الصورة عبر واتساب
+    shareImageWhatsappBtn.addEventListener('click', function() {
+      if (!uploadedImageFile) {
+        alert('الرجاء رفع صورة أولاً');
+        return;
+      }
+      
+      if (!customSizeSelect.value) {
+        alert('الرجاء اختيار مقاس الإطار أولاً');
+        return;
+      }
+      
+      const selectedSize = customSizeSelect.value;
+      
+      // إنشاء نموذج بيانات FormData لإرسال الصورة
+      const formData = new FormData();
+      formData.append('image', uploadedImageFile);
+      
+      // في بيئة الإنتاج، هنا سنقوم برفع الصورة إلى خادم
+      // ثم نستخدم الرابط في رسالة واتساب
+      
+      // بدلاً من ذلك، سنقوم بإنشاء رسالة نصية تحتوي على تفاصيل الطلب
+      const message = `مرحباً، أريد طلب إطار صورة مخصص بالمقاس: ${selectedSize}. لقد قمت برفع الصورة المطلوبة.`;
+      const url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
+      
+      // فتح واتساب مع الرسالة
+      window.open(url, '_blank');
+      
+      // إظهار رسالة توجيهية للمستخدم
+      alert('تم فتح واتساب. الرجاء إرفاق الصورة يدوياً في المحادثة بعد إرسال الرسالة.');
+    });
+
     // Deposit calculator functionality
     const calculateBtn = document.getElementById('calculateBtn');
     const priceInput = document.getElementById('priceInput');
@@ -1013,12 +963,16 @@
       resultContainer.classList.remove('hidden');
     });
 
-    // دالة جديدة للتعامل مع طلبات العروض
-    function handleSpecialOffer(offerName) {
-      const message = `مرحباً، أنا مهتم بالعرض التالي: ${offerName}. هل يمكنكم مساعدتي في الطلب؟`;
-      const url = `https://wa.me/201101011416?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    }
+    // تتبع أحداث Google Analytics
+    document.querySelectorAll('button, a').forEach(element => {
+      element.addEventListener('click', function() {
+        const action = this.textContent.trim() || this.getAttribute('aria-label') || 'button_click';
+        gtag('event', 'click', {
+          'event_category': 'engagement',
+          'event_label': action
+        });
+      });
+    });
   </script>
 </body>
 </html>
